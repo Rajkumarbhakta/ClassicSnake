@@ -19,12 +19,18 @@ import classicsnake.composeapp.generated.resources.compose_multiplatform
 @Composable
 @Preview
 fun App() {
+    val scope = rememberCoroutineScope()
+
+    val gameEngine = GameEngine(scope = scope, onFoodEaten = {
+
+    }, onGameEnded = {
+
+    })
+
     MaterialTheme {
 
-        
-        
-        
-        
+        SnakeGame(gameEngine)
+
     }
 }
 

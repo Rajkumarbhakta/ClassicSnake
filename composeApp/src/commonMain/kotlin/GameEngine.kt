@@ -75,7 +75,6 @@ class GameEngine(
                         currentDirection.value = SnakeDirection.Down
                     }
                     
-                    
                     val newPosition = it.snake.first().let { poz ->
                         mutex.withLock {
                             Pair(
