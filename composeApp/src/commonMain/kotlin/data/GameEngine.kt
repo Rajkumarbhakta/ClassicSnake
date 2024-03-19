@@ -54,16 +54,16 @@ class GameEngine(
         scope.launch {
         var snakeLength = 2
             while (true){
-                delay(150)
+                delay(300)
                 mutableState.update {
                     val hasReachedLeftEnd = it.snake.first().first == 0 && it.currentDirection == SnakeDirection.Left
                     val hasReachedTopEnd =it.snake.first().second == 0 && it.currentDirection == SnakeDirection.Up
                     val hasReachedRightEnd =it.snake.first().first == BOARD_SIZE - 1 && it.currentDirection == SnakeDirection.Right
                     val hasReachedBottomEnd =it.snake.first().second == BOARD_SIZE - 1 && it.currentDirection == SnakeDirection.Down
-                    if (hasReachedLeftEnd || hasReachedTopEnd || hasReachedRightEnd || hasReachedBottomEnd) {
-                        snakeLength = 2
-                        onGameEnded.invoke()
-                    }
+//                    if (hasReachedLeftEnd || hasReachedTopEnd || hasReachedRightEnd || hasReachedBottomEnd) {
+//                        snakeLength = 2
+//                        onGameEnded.invoke()
+//                    }
                     
                     if (move.first == 0 && move.second == -1) {
                         currentDirection.value = SnakeDirection.Up

@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import theme.DarkGreen
+import theme.RedPantone
 
 @Composable
 fun Board(state: State) {
@@ -23,7 +24,7 @@ fun Board(state: State) {
                 .offset(x = tileSize * state.food.first, y = tileSize * state.food.second)
                 .size(tileSize)
                 .background(
-                    DarkGreen, CircleShape
+                    RedPantone, CircleShape
                 )
         )
         state.snake.forEach {
