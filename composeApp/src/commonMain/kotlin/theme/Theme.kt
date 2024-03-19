@@ -81,13 +81,12 @@ fun AppTheme(
     useDarkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable() () -> Unit
 ) {
-    val colors = if (platform.name.contains("Java")) LightColors else {
-        if (!useDarkTheme) {
+    val colors =if (!useDarkTheme) {
             LightColors
         } else {
             DarkColors
         }
-    }
+
 //    print("IS SYSTEM DARK THEME : ${isSystemInDarkTheme()}")
 
     MaterialTheme(
