@@ -46,6 +46,8 @@ kotlin {
             implementation(libs.voyager.navigator)
             implementation(libs.voyager.screenModel)
             implementation(libs.voyager.transitions)
+            //Res
+            //import com.kashif.moviesapp.generated.resources.Res
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)

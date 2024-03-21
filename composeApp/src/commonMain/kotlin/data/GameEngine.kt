@@ -18,13 +18,13 @@ class GameEngine(
     private val mutex = Mutex()
     private val mutableState =
         MutableStateFlow(
-            State(
+            GameState(
                 food = Pair(5, 5),
                 snake = listOf(Pair(7, 7)),
                 currentDirection = SnakeDirection.Right
             )
         )
-    val state: Flow<State> = mutableState
+    val state: Flow<GameState> = mutableState
     
     private val currentDirection = mutableStateOf(SnakeDirection.Right)
 

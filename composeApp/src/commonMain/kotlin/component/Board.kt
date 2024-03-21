@@ -10,7 +10,7 @@ import theme.DarkGreen
 import theme.RedPantone
 
 @Composable
-fun Board(state: State) {
+fun Board(state: GameState) {
 
     BoxWithConstraints(modifier = Modifier.padding(16.dp)) {
         val tileSize = maxWidth / GameEngine.BOARD_SIZE

@@ -3,11 +3,19 @@ package theme
 import Platform
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Typography
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
+import classicsnake.composeapp.generated.resources.Res
+import classicsnake.composeapp.generated.resources.snake
 import getPlatform
+import org.jetbrains.compose.resources.ExperimentalResourceApi
 
 
 private val LightColors = lightColors(
@@ -75,9 +83,18 @@ private val DarkColors = darkColors(
 //    scrim = md_theme_dark_scrim,
 )
 
+
+//@OptIn(ExperimentalResourceApi::class)
+//@Composable
+//fun getTypography():Typography {
+//    val snake = FontFamily(
+//        Font(Res.font.snake, FontWeight.Normal, FontStyle.Normal)
+//    )
+//
+//}
+
 @Composable
 fun AppTheme(
-    platform: Platform = getPlatform(),
     useDarkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable() () -> Unit
 ) {
@@ -86,8 +103,6 @@ fun AppTheme(
         } else {
             DarkColors
         }
-
-//    print("IS SYSTEM DARK THEME : ${isSystemInDarkTheme()}")
 
     MaterialTheme(
         colors = colors,
