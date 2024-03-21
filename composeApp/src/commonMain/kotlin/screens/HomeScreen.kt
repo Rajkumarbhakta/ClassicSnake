@@ -67,7 +67,7 @@ class HomeScreen : Screen {
                     }
 
                     ButtonDefault(text = "Settings") {
-
+                        navigator!!.push(SettingsScreen())
                     }
 
                     ButtonDefault(text = "About") {

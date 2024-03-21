@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
+import component.AppBar
 import viewmodel.GameScreenViewModel
 
 class GameScreen : Screen {
@@ -27,22 +28,8 @@ class GameScreen : Screen {
             viewModel.score
         }
         Scaffold(topBar = {
-            Row(
-                modifier = Modifier.fillMaxWidth().padding(8.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
-            ) {
-
-                IconButton(
-                    onClick = {
-                        navigator!!.pop()
-                    }
-                ) {
-                    Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "")
-                }
-
-                Text("", modifier = Modifier.weight(1f))
-
+            AppBar(""){
+                navigator!!.pop()
             }
 
         }) {
