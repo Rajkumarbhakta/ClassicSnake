@@ -3,10 +3,12 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import theme.DarkGreen
+import theme.LightGreen
 import theme.RedPantone
 
 @Composable
@@ -17,7 +19,7 @@ fun Board(state: GameState) {
         Box(
             Modifier
                 .size(maxWidth)
-                .border(2.dp, DarkGreen)
+                .border(2.dp, MaterialTheme.colors.primary, shape = RoundedCornerShape(8.dp))
         )
         Box(
             Modifier
@@ -33,7 +35,7 @@ fun Board(state: GameState) {
                     .offset(x = tileSize * it.first, y = tileSize * it.second)
                     .size(tileSize)
                     .background(
-                        DarkGreen, RoundedCornerShape(4.dp)
+                        MaterialTheme.colors.onSurface, RoundedCornerShape(4.dp)
                     )
             )
         }

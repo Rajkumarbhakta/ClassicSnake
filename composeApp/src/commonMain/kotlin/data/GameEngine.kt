@@ -1,4 +1,5 @@
 import androidx.compose.runtime.mutableStateOf
+import data.SnakeSpeed
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -7,11 +8,14 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import screens.GameMode
 import kotlin.random.Random
 
 
 class GameEngine(
     private val scope: CoroutineScope,
+    private val gameMode : GameMode = GameMode.Normal,
+    private val speed :Long = SnakeSpeed.FOUR,
     private val onGameEnded: () -> Unit,
     private val onFoodEaten: () -> Unit
 ) {
@@ -25,7 +29,7 @@ class GameEngine(
             )
         )
     val state: Flow<GameState> = mutableState
-    
+
     private val currentDirection = mutableStateOf(SnakeDirection.Right)
 
     var move = Pair(1, 0)
@@ -52,19 +56,25 @@ class GameEngine(
 
     init {
         scope.launch {
-        var snakeLength = 2
-            while (true){
-                delay(300)
+            var snakeLength = 2
+            while (true) {
+                delay(speed)
                 mutableState.update {
-                    val hasReachedLeftEnd = it.snake.first().first == 0 && it.currentDirection == SnakeDirection.Left
-                    val hasReachedTopEnd =it.snake.first().second == 0 && it.currentDirection == SnakeDirection.Up
-                    val hasReachedRightEnd =it.snake.first().first == BOARD_SIZE - 1 && it.currentDirection == SnakeDirection.Right
-                    val hasReachedBottomEnd =it.snake.first().second == BOARD_SIZE - 1 && it.currentDirection == SnakeDirection.Down
-//                    if (hasReachedLeftEnd || hasReachedTopEnd || hasReachedRightEnd || hasReachedBottomEnd) {
-//                        snakeLength = 2
-//                        onGameEnded.invoke()
-//                    }
-                    
+
+                    if (gameMode == GameMode.Box) {
+                        val hasReachedLeftEnd = it.snake.first().first == 0 && it.currentDirection == SnakeDirection.Left
+                        val hasReachedTopEnd = it.snake.first().second == 0 && it.currentDirection == SnakeDirection.Up
+                        val hasReachedRightEnd =
+                            it.snake.first().first == BOARD_SIZE - 1 && it.currentDirection == SnakeDirection.Right
+                        val hasReachedBottomEnd =
+                            it.snake.first().second == BOARD_SIZE - 1 && it.currentDirection == SnakeDirection.Down
+
+                        if (hasReachedLeftEnd || hasReachedTopEnd || hasReachedRightEnd || hasReachedBottomEnd) {
+                            snakeLength = 2
+                            onGameEnded.invoke()
+                        }
+                    }
+
                     if (move.first == 0 && move.second == -1) {
                         currentDirection.value = SnakeDirection.Up
                     } else if (move.first == -1 && move.second == 0) {
@@ -74,7 +84,7 @@ class GameEngine(
                     } else if (move.first == 0 && move.second == 1) {
                         currentDirection.value = SnakeDirection.Down
                     }
-                    
+
                     val newPosition = it.snake.first().let { poz ->
                         mutex.withLock {
                             Pair(
@@ -83,7 +93,7 @@ class GameEngine(
                             )
                         }
                     }
-                    
+
                     if (newPosition == it.food) {
                         onFoodEaten.invoke()
                         snakeLength++
@@ -101,14 +111,14 @@ class GameEngine(
                         ) else it.food,
                         snake = listOf(newPosition) + it.snake.take(snakeLength - 1),
                         currentDirection = currentDirection.value,
-                        )
-                    
+                    )
+
                 }
             }
-            
+
         }
     }
-    
+
     companion object {
         const val BOARD_SIZE = 32
     }
