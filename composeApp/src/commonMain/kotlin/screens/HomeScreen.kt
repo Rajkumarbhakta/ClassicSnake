@@ -1,15 +1,28 @@
 package screens
 
-import ButtonDefault
-import GameScreen
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.material.Button
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Slider
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableFloatState
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,6 +36,7 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import classicsnake.composeapp.generated.resources.Res
 import classicsnake.composeapp.generated.resources.snake
+import component.ButtonDefault
 import data.SnakeSpeed
 import getPlatform
 import org.jetbrains.compose.resources.ExperimentalResourceApi
@@ -79,11 +93,11 @@ class HomeScreen : Screen {
                     Spacer(modifier = Modifier.height(16.dp))
 
                     ButtonDefault(text = "New Game") {
-//                        navigator!!.push(GameScreen())
+//                        navigator!!.push(screens.GameScreen())
                         isDialogVisible.value = true
                     }
 
-//                    ButtonDefault(text = "Settings") {
+//                    component.ButtonDefault(text = "Settings") {
 //                        isDialogVisible.value = true
 //                        //navigator!!.push(SettingsScreen())
 //                    }
@@ -111,15 +125,30 @@ class HomeScreen : Screen {
                                     }
 
                                     3 -> {
-                                        navigator!!.push(GameScreen(SnakeSpeed.THREE, gameMode.value))
+                                        navigator!!.push(
+                                            GameScreen(
+                                                SnakeSpeed.THREE,
+                                                gameMode.value
+                                            )
+                                        )
                                     }
 
                                     4 -> {
-                                        navigator!!.push(GameScreen(SnakeSpeed.FOUR, gameMode.value))
+                                        navigator!!.push(
+                                            GameScreen(
+                                                SnakeSpeed.FOUR,
+                                                gameMode.value
+                                            )
+                                        )
                                     }
 
                                     5 -> {
-                                        navigator!!.push(GameScreen(SnakeSpeed.FIVE, gameMode.value))
+                                        navigator!!.push(
+                                            GameScreen(
+                                                SnakeSpeed.FIVE,
+                                                gameMode.value
+                                            )
+                                        )
                                     }
                                 }
                             } catch (e: Exception) {
@@ -149,7 +178,10 @@ class HomeScreen : Screen {
         }) {
             Column(
                 modifier = Modifier.fillMaxWidth()
-                    .background(color = MaterialTheme.colors.surface, shape = RoundedCornerShape(8.dp))
+                    .background(
+                        color = MaterialTheme.colors.surface,
+                        shape = RoundedCornerShape(8.dp)
+                    )
             ) {
                 Text(
                     "Settings",
@@ -171,13 +203,17 @@ class HomeScreen : Screen {
                 )
 
                 Slider(
-                    value = sliderPosition.value, onValueChange = {
+                    value = sliderPosition.value,
+                    onValueChange = {
                         sliderPosition.value = it
                     },
-                    valueRange = 1f..5f, modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp)
+                    valueRange = 1f..5f,
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp)
                 )
                 Spacer(modifier = Modifier.height(8.dp))
-                Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp)) {
+                Row(
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp)
+                ) {
                     Button(
                         modifier = Modifier.weight(1f).padding(end = 4.dp),
                         shape = RoundedCornerShape(50.dp),
@@ -208,7 +244,10 @@ class HomeScreen : Screen {
     ) {
         Row(
             Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp)
-                .background(color = MaterialTheme.colors.secondary, shape = RoundedCornerShape(8.dp)),
+                .background(
+                    color = MaterialTheme.colors.secondary,
+                    shape = RoundedCornerShape(8.dp)
+                ),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(

@@ -1,5 +1,6 @@
 package data
-object  SnakeSpeed{
+
+object SnakeSpeed {
     const val ONE = 300L
     const val TWO = 250L
     const val THREE = 200L

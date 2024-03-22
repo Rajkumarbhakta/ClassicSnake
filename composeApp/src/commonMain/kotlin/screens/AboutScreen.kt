@@ -27,7 +27,9 @@ class AboutScreen : Screen {
         ) {
 
             Box(modifier = Modifier.fillMaxSize().padding(it)) {
-                Column(modifier = Modifier.fillMaxSize().padding(horizontal = 16.dp, vertical = 8.dp)) {
+                Column(
+                    modifier = Modifier.fillMaxSize().padding(horizontal = 16.dp, vertical = 8.dp)
+                ) {
 
                     Text("About Screen")
 

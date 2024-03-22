@@ -1,5 +1,7 @@
+package data
+
 import androidx.compose.runtime.mutableStateOf
-import data.SnakeSpeed
+import constants.SnakeDirection
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -14,8 +16,8 @@ import kotlin.random.Random
 
 class GameEngine(
     private val scope: CoroutineScope,
-    private val gameMode : GameMode = GameMode.Normal,
-    private val speed :Long = SnakeSpeed.FOUR,
+    private val gameMode: GameMode = GameMode.Normal,
+    private val speed: Long = SnakeSpeed.FOUR,
     private val onGameEnded: () -> Unit,
     private val onFoodEaten: () -> Unit
 ) {
@@ -25,12 +27,12 @@ class GameEngine(
             GameState(
                 food = Pair(5, 5),
                 snake = listOf(Pair(7, 7)),
-                currentDirection = SnakeDirection.Right
+                currentDirection = SnakeDirection.RIGHT
             )
         )
     val state: Flow<GameState> = mutableState
 
-    private val currentDirection = mutableStateOf(SnakeDirection.Right)
+    private val currentDirection = mutableStateOf(SnakeDirection.RIGHT)
 
     var move = Pair(1, 0)
         set(value) {
@@ -47,10 +49,10 @@ class GameEngine(
             it.copy(
                 food = Pair(5, 5),
                 snake = listOf(Pair(7, 7)),
-                currentDirection = SnakeDirection.Right
+                currentDirection = SnakeDirection.RIGHT
             )
         }
-        currentDirection.value = SnakeDirection.Right
+        currentDirection.value = SnakeDirection.RIGHT
         move = Pair(1, 0)
     }
 
@@ -62,12 +64,14 @@ class GameEngine(
                 mutableState.update {
 
                     if (gameMode == GameMode.Box) {
-                        val hasReachedLeftEnd = it.snake.first().first == 0 && it.currentDirection == SnakeDirection.Left
-                        val hasReachedTopEnd = it.snake.first().second == 0 && it.currentDirection == SnakeDirection.Up
+                        val hasReachedLeftEnd =
+                            it.snake.first().first == 0 && it.currentDirection == SnakeDirection.LEFT
+                        val hasReachedTopEnd =
+                            it.snake.first().second == 0 && it.currentDirection == SnakeDirection.UP
                         val hasReachedRightEnd =
-                            it.snake.first().first == BOARD_SIZE - 1 && it.currentDirection == SnakeDirection.Right
+                            it.snake.first().first == BOARD_SIZE - 1 && it.currentDirection == SnakeDirection.RIGHT
                         val hasReachedBottomEnd =
-                            it.snake.first().second == BOARD_SIZE - 1 && it.currentDirection == SnakeDirection.Down
+                            it.snake.first().second == BOARD_SIZE - 1 && it.currentDirection == SnakeDirection.DOWN
 
                         if (hasReachedLeftEnd || hasReachedTopEnd || hasReachedRightEnd || hasReachedBottomEnd) {
                             snakeLength = 2
@@ -76,13 +80,13 @@ class GameEngine(
                     }
 
                     if (move.first == 0 && move.second == -1) {
-                        currentDirection.value = SnakeDirection.Up
+                        currentDirection.value = SnakeDirection.UP
                     } else if (move.first == -1 && move.second == 0) {
-                        currentDirection.value = SnakeDirection.Left
+                        currentDirection.value = SnakeDirection.LEFT
                     } else if (move.first == 1 && move.second == 0) {
-                        currentDirection.value = SnakeDirection.Right
+                        currentDirection.value = SnakeDirection.RIGHT
                     } else if (move.first == 0 && move.second == 1) {
-                        currentDirection.value = SnakeDirection.Down
+                        currentDirection.value = SnakeDirection.DOWN
                     }
 
                     val newPosition = it.snake.first().let { poz ->

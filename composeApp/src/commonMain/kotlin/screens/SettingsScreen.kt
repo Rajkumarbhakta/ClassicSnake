@@ -19,8 +19,6 @@ class SettingsScreen : Screen {
             }
         }) {
 
-            
-
 
         }
 

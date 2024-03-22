@@ -1,14 +1,18 @@
 package viewmodel
 
-import GameEngine
-import androidx.compose.runtime.*
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import cafe.adriel.voyager.core.model.ScreenModel
-import kotlinx.coroutines.*
+import data.GameEngine
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import screens.GameMode
 
 class GameScreenViewModel(
-    private val speed: Long,
-    private val mode: GameMode
+    speed: Long,
+    mode: GameMode
 ) : ScreenModel {
 
     private val _score = mutableIntStateOf(0)
